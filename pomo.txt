@@ -1,0 +1,74 @@
+  // tabBarOptions={{
+          // style: {
+          //   height: 60,
+          //   backgroundColor: colors.primary,
+          //   borderTopWidth: 0,
+          // },
+          // tabStyle: {
+          //   alignItems: 'center',
+          //   justifyContent: 'center'
+          // },
+          // iconStyle: {
+          //   flex: 1,
+          //   width: 30,
+          //   height: 30,
+          // },
+          // labelStyle: {
+          //   fontSize: 12,
+          //   margin: 2
+          // },
+          // inactiveTintColor: colors.secondary,
+          // activeTintColor: colors.green
+        // }}
+
+
+
+
+   <Navigator
+      initialRouteName='home'
+      activeColor={colors.green}
+      barStyle={{backgroundColor: colors.primary}}
+      >
+        <Screen
+          component={Home}
+          name='Home'
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ color }) => (
+              <Feather
+                name='clock'
+                size={26}
+                color={color}
+              />
+            )
+          }}
+        />
+        <Screen
+          component={Settings}
+          name='report'
+          options={{
+            tabBarLabel: 'Report',
+            tabBarIcon: ({ color }) => (
+              <Feather
+                name='calendar'
+                size={26}
+                color={color}
+              />
+            )
+          }}
+        />
+        <Screen
+          component={Settings}
+          name='settings'
+          options={{
+            tabBarLabel: 'Settings',
+            tabBarIcon: ({ color }) => (
+              <Feather
+                name='settings'
+                size={26}
+                color={color}
+              />
+            )
+          }}
+        />
+      </Navigator>
