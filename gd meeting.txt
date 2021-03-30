@@ -1,0 +1,2 @@
+- falar sobre o toggle button (switch)
+- falar sobre o login com  o google
