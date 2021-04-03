@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { set } from 'react-native-reanimated';
+// import {} from 'expo-notification'
 
 import {
   Container,
@@ -12,13 +14,22 @@ import {
 } from './styles'
 
 export default function Home() {
-  const [time, setTime] = useState(25 * 60)
+  const workCicle = 25
+  const shortBreak = 5
+  const longBreak = 10
+
+
   const [isActive, setIsActive] = useState(false)
+  const [type, setType] = useState(workCicle)
+  // const [time, setTime] = useState(type * 60)
+  const [time, setTime] = useState(6)
+  const [cicleCounter, setCicleCounter] = useState(0)
 
   const minutes = Math.floor(time / 60)
   const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('')
   const seconds = time % 60
   const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('')
+
 
   function Start() {
     setIsActive(true)
@@ -29,19 +40,48 @@ export default function Home() {
     setTime(time)
   }
 
-  function Stop() {
+  function Reset() {
     clearInterval(countdownTimeout)
     setIsActive(false)
-    setTime(25 * 60)
+    setTime(type * 60)
   }
 
-  let countdownTimeout = ''
+  function countdownTimeout() {
+    setTimeout(() => {
+      setTime(time - 1)
+    }, 1000)
+  } 
+
   useEffect(() => {
-    if (isActive) {
-      countdownTimeout = setTimeout(() => {
-        setTime(time - 1)
-      }, 1000)
+    if (isActive && time > 0) {
+      countdownTimeout()
+    } else if (isActive && time === 0 && type === workCicle && cicleCounter < 1) {
+      clearInterval(countdownTimeout)
+      // setIsActive(false)
+      setType(shortBreak)
+      setTime(2)
+      // setTime(5 * 60)
+      setCicleCounter(cicleCounter + 1)
+    } else if (isActive && time === 0 && type === workCicle) {
+      clearInterval(countdownTimeout)
+      // setIsActive(false)
+      setType(longBreak)
+      setTime(4)
+      // setTime(5 * 60)
+      setCicleCounter(cicleCounter + 1)
+    } else if (isActive && time === 0 && type === shortBreak) {
+      clearInterval(countdownTimeout)
+      // setIsActive(false)
+      setType(workCicle)
+      setTime(6)
+    } else if (isActive && time === 0 && type === longBreak) {
+      clearInterval(countdownTimeout)
+      // setIsActive(false)
+      setType(workCicle)
+      setTime(6)
+      setCicleCounter(0)
     }
+
   }, [isActive, time])
 
   return (
@@ -66,12 +106,18 @@ export default function Home() {
             </StartButton>
           )}
 
-          <StopButton onPress={Stop}>
+          <StopButton onPress={Reset}>
             <ButtonText>
               Stop
-          </ButtonText>
+            </ButtonText>
           </StopButton>
         </ButtonsContainer>
+        <Countdown>
+          {type}
+        </Countdown>
+        <Countdown>
+          {cicleCounter}
+        </Countdown>
       </Content>
     </Container>
   );

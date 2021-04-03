@@ -53,7 +53,7 @@ export const StopButton = styled(RectButton)`
 export const PauseButton = styled(RectButton)`
   width: 45%;
   height: 60px;
-  background: yellow;
+  background: ${colors.primary};
   align-items: center;
   justify-content: center;
   border-radius: 10px;
