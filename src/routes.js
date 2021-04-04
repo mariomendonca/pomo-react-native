@@ -1,18 +1,20 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Ionicons, AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 
 import colors from './styles/Colors'
 
-import Home from './screens/Home/Home'
-import Settings from './screens/Settings/Settings'
+import Home from './screens/Home'
+import Settings from './screens/Settings'
+import { StatusBar } from 'react-native';
 
 export default function Routes() {
   const { Screen, Navigator } = createBottomTabNavigator()
 
   return (
     <NavigationContainer>
+      <StatusBar barStyle='dark-content'/>
       <Navigator
         tabBarOptions={{
           style: {
